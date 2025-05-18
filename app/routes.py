@@ -77,55 +77,26 @@ def project_detail(project_id):
     tasks = Task.query.filter_by(project_id=project.id).all()
     return render_template('project_detail.html', project=project, tasks=tasks)
 
-# @main.route('/project/<int:project_id>/task/new', methods=['GET', 'POST'])
-# @login_required
-# def new_task(project_id):
-#     form = TaskForm()
-#     form.assignee_id.choices = [(u.id, u.first_name) for u in User.query.all()]
-#     if form.validate_on_submit():
-#         task = Task(
-#             name=form.name.data,
-#             description=form.description.data,
-#             assignee_id=form.assignee_id.data,
-#             due_date=form.due_date.data,
-#             status=form.status.data,
-#             project_id=project_id
-#         )
-#         db.session.add(task)
-#         db.session.commit()
-#         return redirect(url_for('main.project_detail', project_id=project_id))
-#     return render_template('task_form.html', form=form)
-
 @main.route('/project/<int:project_id>/task/new', methods=['GET', 'POST'])
 @login_required
 def new_task(project_id):
     form = TaskForm()
-    
-    # Set assignee choices dynamically
-    form.assignee_id.choices = [(u.id, u.first_name) for u in User.query.all()]
-    
-    tags = SelectMultipleField('Tags', coerce=int)
-
-
-    # Don't show project selection — it's already known via project_id
-    # So don't set form.project_id. Just use project_id directly when saving.
-
+    print(form.validate_on_submit)
     if form.validate_on_submit():
         task = Task(
             name=form.name.data,
             description=form.description.data,
-            assignee_id=form.assignee_id.data,
+            assignee_id=int(form.assignee_id.data),
             due_date=form.due_date.data,
+            image = blob_image(form.image.data),
             status=form.status.data,
             project_id=project_id  # use directly
         )
-
-        # Assign tags (if any)
-        task.tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
-
         db.session.add(task)
         db.session.commit()
         return redirect(url_for('main.project_detail', project_id=project_id))
+    if request.method == 'POST':
+        print("Form errors:", form.errors)
 
     return render_template('task_form.html', form=form)
 

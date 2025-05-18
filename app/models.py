@@ -51,6 +51,6 @@ class Task(db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
     due_date = db.Column(db.Date)
     status = db.Column(db.String(50), default="To-Do")
-    image = db.Column(db.String(200))  # stores filename/path
+    image = db.Column(db.BLOB)  # stores filename/path
 
     tags = db.relationship('Tag', secondary=task_tags, backref='tasks')

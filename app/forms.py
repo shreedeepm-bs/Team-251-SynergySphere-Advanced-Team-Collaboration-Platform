@@ -18,7 +18,7 @@ class LoginForm(FlaskForm):
 
 class ProjectForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    tags = SelectMultipleField('Tags', choices=[('tag1', 'Tag 1'), ('tag2', 'Tag 2'), ('tag3', 'Tag 3')])
+    tags = SelectMultipleField('Tags', choices=[('tag1', 'Feedback'), ('tag2', 'Optimise Performance'), ('tag3', 'Bug')])
     project_manager = StringField('Project Manager ID', validators=[DataRequired()])
     deadline = DateField('Deadline', format='%Y-%m-%d', validators=[DataRequired()])
     priority = RadioField('Priority', choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], default='medium')
@@ -29,10 +29,9 @@ class ProjectForm(FlaskForm):
 class TaskForm(FlaskForm):
     name = StringField('Task Name', validators=[DataRequired()])
     description = TextAreaField('Description')
-    assignee_id = SelectField('Assign To', coerce=int)
-    project_id = SelectField('Project', coerce=int)
-    tags = SelectMultipleField('Tags', coerce=int) # populated dynamically
+    assignee_id = TextAreaField('Assign To User Id', validators=[DataRequired()])
+    tags = SelectField('Tags', choices=[('tag1', 'Feedback'), ('tag2', 'Optimise Performance'), ('tag3', 'Bug')])
     due_date = DateField('Due Date', format='%Y-%m-%d')
-    image = FileField('Upload Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
+    image = FileField('Upload Image', validators=[FileAllowed(['jpg'], 'jpg Images only!')])
     status = SelectField('Status', choices=[('To-Do', 'To-Do'), ('In Progress', 'In Progress'), ('Done', 'Done')])
-    submit = SubmitField('Save Task')
+    submit = SubmitField('Save Task') #fixed

@@ -1,1 +1,1 @@
-# Team-251-Community-Pulse
+# SynergySphere – Advanced Team Collaboration Platform

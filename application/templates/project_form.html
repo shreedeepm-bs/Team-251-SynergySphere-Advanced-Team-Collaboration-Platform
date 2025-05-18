@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}New Project - SynergySphere{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h4 class="card-title">Create New Project</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.name.label }} {{ form.name(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.tags.label }}
+                {{ form.tags(class="form-select", multiple=True) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.project_manager.label }}
+                {{ form.project_manager(class="form-select") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.deadline.label }} {{ form.deadline(class="form-control", type="date") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.priority.label }}<br>
+                {% for subfield in form.priority %}
+                    <div class="form-check form-check-inline">
+                        {{ subfield(class="form-check-input") }}
+                        {{ subfield.label(class="form-check-label") }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.image.label }} {{ form.image(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.description.label }} {{ form.description(class="form-control") }}
+            </div>
+
+            <div class="text-end">
+                {{ form.submit(class="btn btn-success") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

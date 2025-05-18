@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}New Task - SynergySphere{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h4 class="card-title">Create New Task</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.name.label }} {{ form.name(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.assignee_id.label }} {{ form.assignee_id(class="form-select") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.project_id.label }} {{ form.project_id(class="form-select") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.tags.label }} {{ form.tags(class="form-select", multiple=True) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.due_date.label }} {{ form.due_date(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.image.label }} {{ form.image(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.description.label }} {{ form.description(class="form-control") }}
+            </div>
+
+            <div class="text-end">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

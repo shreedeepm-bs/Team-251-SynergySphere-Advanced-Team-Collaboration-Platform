@@ -19,7 +19,7 @@ class LoginForm(FlaskForm):
 class ProjectForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     tags = SelectMultipleField('Tags', choices=[('tag1', 'Tag 1'), ('tag2', 'Tag 2'), ('tag3', 'Tag 3')])
-    project_manager = SelectField('Project Manager', choices=[('1', 'Alice'), ('2', 'Bob'), ('3', 'Charlie')])
+    project_manager = StringField('Project Manager ID', validators=[DataRequired()])
     deadline = DateField('Deadline', format='%Y-%m-%d', validators=[DataRequired()])
     priority = RadioField('Priority', choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], default='medium')
     image = FileField('Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])

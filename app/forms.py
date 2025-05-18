@@ -22,7 +22,7 @@ class ProjectForm(FlaskForm):
     project_manager = StringField('Project Manager ID', validators=[DataRequired()])
     deadline = DateField('Deadline', format='%Y-%m-%d', validators=[DataRequired()])
     priority = RadioField('Priority', choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], default='medium')
-    image = FileField('Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
+    image = FileField('Image .jpg only', validators=[FileAllowed(['jpg'], 'Images only!')])
     description = TextAreaField('Description')
     submit = SubmitField('Create')
 

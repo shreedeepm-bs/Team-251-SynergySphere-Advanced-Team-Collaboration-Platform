@@ -54,14 +54,19 @@ def dashboard():
     projects = Project.query.filter_by(owner_id=current_user.id).all()
     return render_template('dashboard.html', projects=projects)
 
+def blob_image(file):
+    if file:
+        return file.read()  # Read binary content
+
 @main.route('/project/new', methods=['GET', 'POST'])
 @login_required
 def new_project():
     form = ProjectForm()
     if form.validate_on_submit():
-        project = Project(name=form.name.data,project_manager_id=form.project_manager.data, description=form.description.data, owner_id=current_user.id)
+        project = Project(name=form.name.data, image = blob_image(form.image.data), priority = form.priority.data , deadline = form.deadline.data, project_manager_id=form.project_manager.data, description=form.description.data, owner_id=current_user.id)
         db.session.add(project)
         db.session.commit()
+        print(blob_image(form.image.data))
         return redirect(url_for('main.dashboard'))
     return render_template('project_form.html', form=form)
 

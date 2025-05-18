@@ -38,7 +38,7 @@ class Project(db.Model):
     deadline = db.Column(db.Date)
     priority = db.Column(db.String(10))  # e.g. 'low', 'medium', 'high'
 
-    image = db.Column(db.String(255))  # store filename or full path
+    image = db.Column(db.BLOB)  # store file
 
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
